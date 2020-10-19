@@ -2,11 +2,10 @@
 
 ### Based on the following work:
 
-[IB Controller](https://github.com/ib-controller/ib-controller/) and VNC
-[ib-gateway-docker](https://github.com/mvberg/ib-gateway-docker)
-[Interactive Brokers Gateway Docker Image](https://hub.docker.com/r/mvberg/ib-gateway-docker)
-
-All credits to the respective contributor(s). 
+* [IB Controller](https://github.com/ib-controller/ib-controller/) and VNC
+* [ib-gateway-docker](https://github.com/mvberg/ib-gateway-docker)
+* [Interactive Brokers Gateway Docker Image](https://hub.docker.com/r/mvberg/ib-gateway-docker)
+* All credits to the respective contributor(s). 
 
 ### Versions:
 * TWS Gateway: v974.4g
