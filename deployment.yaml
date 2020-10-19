@@ -1,0 +1,75 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ib-gateway-service
+  namespace: default
+
+spec:
+  ports:
+    - name: 4003-to-4003-tcp
+      port: 4003
+      protocol: TCP
+      targetPort: 4003
+    - name: 5901-to-5900-tcp
+      port: 5901
+      protocol: TCP
+      targetPort: 5900
+  selector:
+    app: ib-gateway
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ib-gateway
+  namespace: default
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ib-gateway
+  template:
+    metadata:
+      labels:
+        app: ib-gateway
+
+    spec:
+      containers:
+        - name: ib-gateway
+          image: gcr.io/future-281805/ib-gateway:latest
+          ports:
+            - containerPort: 4003
+            - containerPort: 5900
+          env:
+            - name: APP
+              value: GATEWAY
+            - name: FIXPASSWORD
+            - name: FIXUSERID
+            - name: IBC_INI
+              value: /root/IBController/IBController.ini
+            - name: IBC_PATH
+              value: /opt/IBController
+            - name: JAVA_PATH
+              value: /opt/i4j_jres/1.8.0_152/bin
+            - name: LOG_PATH
+              value: /opt/IBController/Logs
+            - name: TRADING_MODE
+              value: paper
+            - name: TWSPASSWORD
+              value: secret
+            - name: TWSUSERID
+              value: user1234
+            - name: TWS_CONFIG_PATH
+              value: /root/Jts
+            - name: TWS_MAJOR_VRSN
+              value: "974"
+            - name: TWS_PATH
+              value: /root/Jts
+            - name: TZ
+              value: America/Chicago
+            - name: VNC_PASSWORD
+              value: vnc_secret

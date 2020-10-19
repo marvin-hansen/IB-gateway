@@ -1,0 +1,17 @@
+steps:
+  # (1) Build docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Build # Keep the internal version number consistent with its deployment file
+    args: [ 'build', '-t', 'gcr.io/project-id/ib-gateway:latest', '.' ]
+  # (2) Publish docker image to container registration
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Publish
+    args: ["push", "gcr.io/project-id/ib-gateway:latest"]
+  # (3 ) Deploy to GKE
+  - name: 'gcr.io/cloud-builders/gke-deploy'
+    args:
+      - run
+      - --filename=deployment.yaml
+      - --image=gcr.io/project-id/ib-gateway:latest
+      - --location=cluster-region
+      - --cluster=cluster-name
