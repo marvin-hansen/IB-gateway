@@ -60,12 +60,6 @@ Friday	23:00 - 03:00 ET
 During the Friday evening reset period, all services will be unavailable 
 in all regions for the duration of the reset.
 
-### Docker Hub image
-
-* https://hub.docker.com/r/mvberg/ib-gateway-docker
-* Not recommended to pull & run because doing so requires mounting a shared storage volume to just load config files.  
-* Recommended path: Build custom image with all configs copied inside the container.
-
 ### Getting Started with Kubernetes
 
 1) Clone repo: git clone
