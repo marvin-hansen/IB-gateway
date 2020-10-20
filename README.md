@@ -61,7 +61,7 @@ During the Friday evening reset period, all services will be unavailable
 in all regions for the duration of the reset.
 
 
-### Getting Started with docker
+## Getting Started with docker
 
 1) Clone repo: git clone
 
@@ -134,7 +134,7 @@ Exception in thread "main" java.awt.AWTError: Can't connect to X11 window server
 You will have to remove the container `docker rm container_id` and run `docker-compose up` again.
 
 
-### Getting Started with Kubernetes
+## Getting Started with Kubernetes
 
 1) Clone repo: git clone
 
@@ -158,7 +158,7 @@ You will have to remove the container `docker rm container_id` and run `docker-c
     * Push to repo 
     * Let cloud-build build, store, and deploy the container following each push.
 
-Local access to the gateway:
+## Localhost access to the gateway:
 
 > kubectl get services 
 
