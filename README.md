@@ -60,68 +60,6 @@ Friday	23:00 - 03:00 ET
 During the Friday evening reset period, all services will be unavailable 
 in all regions for the duration of the reset.
 
-### Getting Started with Kubernetes
-
-1) Clone repo: git clone
-
-2) Edit deployment.yaml
-    * Set TRADING_MODE=paper # or live 
-    * Set TWSUSERID=ib_username # i.e. jobo1960
-    * Set TWSPASSWORD=secret # Must be plaintext, no quotes 
-
-3) Edit cloudbuild.yaml
-    * Set cluster name & location for auto-deployment
-    * Leave image name as it is otherwise Deployment.yaml needs to be updated as well.
-
-4) Manual Deployment (for testing):
-    * Ensure docker image is in registry
-    * kubectl apply -f deployment.yaml 
-
-5) Auto Deployment on GCP:
-    * Setup a new git repo on GCP
-    * Change master to new origin
-    * Set build trigger in cloud-build
-    * Push to repo 
-    * Let cloud-build build, store, and deploy the container following each push.
-
-Local access to the gateway:
-
-> kubectl get services 
-
-Expected output on a new cluster:
-```bash
->kubectl get services
-NAME                 TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)             AGE
-ib-gateway-service   ClusterIP   10.4.15.215   <none>        4003/TCP,5901/TCP   2d18h
-kubernetes           ClusterIP   10.4.0.1      <none>        443/TCP             5d18h
-```
-
-> kubectl port-forward service/ib-gateway-service 4003
-
-
-Expected output:
-```bash
-Forwarding from 127.0.0.1:4003 -> 4003
-Forwarding from [::1]:4003 -> 4003
-```
-
-Thereafter, any connection to 127.0.0.1:4003 gets routed through SSL to
-the cluster service. Kubernetes resolves the DNS name automatically and routes from the 
-virtual service name to the matching pod in the cluster.
-
-Programming the IB gateway on Kubernetes:
-
-The only applicable rule is:
-
-"Always connect to the service name"
-
-> ib-gateway-service:4003 
-
-Kubernetes assigns IP addresses dynamically, therefore any hard coded
-IP addresses almost certainly will be invalidated after a new deployment leading
-to connection timout errors. At the same time, kubernetes updates the internal DNS 
-system dynamically so whenever a pod got replaced, the new IP already is in the DNS
-resolver at the moment the pod comes online. Therefore, *always connect to the service name*
 
 ### Getting Started with docker
 
@@ -194,3 +132,68 @@ Exception in thread "main" java.awt.AWTError: Can't connect to X11 window server
 ```
 
 You will have to remove the container `docker rm container_id` and run `docker-compose up` again.
+
+
+### Getting Started with Kubernetes
+
+1) Clone repo: git clone
+
+2) Edit deployment.yaml
+    * Set TRADING_MODE=paper # or live 
+    * Set TWSUSERID=ib_username # i.e. jobo1960
+    * Set TWSPASSWORD=secret # Must be plaintext, no quotes 
+
+3) Edit cloudbuild.yaml
+    * Set cluster name & location for auto-deployment
+    * Leave image name as it is otherwise Deployment.yaml needs to be updated as well.
+
+4) Manual Deployment (for testing):
+    * Ensure docker image is in registry
+    * kubectl apply -f deployment.yaml 
+
+5) Auto Deployment on GCP:
+    * Setup a new git repo on GCP
+    * Change master to new origin
+    * Set build trigger in cloud-build
+    * Push to repo 
+    * Let cloud-build build, store, and deploy the container following each push.
+
+Local access to the gateway:
+
+> kubectl get services 
+
+Expected output on a new cluster:
+```bash
+>kubectl get services
+NAME                 TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)             AGE
+ib-gateway-service   ClusterIP   10.4.15.215   <none>        4003/TCP,5901/TCP   2d18h
+kubernetes           ClusterIP   10.4.0.1      <none>        443/TCP             5d18h
+```
+
+> kubectl port-forward service/ib-gateway-service 4003
+
+
+Expected output:
+```bash
+Forwarding from 127.0.0.1:4003 -> 4003
+Forwarding from [::1]:4003 -> 4003
+```
+
+Thereafter, any connection to 127.0.0.1:4003 gets routed through SSL to
+the cluster service. Kubernetes resolves the DNS name automatically and routes from the 
+virtual service name to the matching pod in the cluster.
+
+Programming the IB gateway on Kubernetes:
+
+The only applicable rule is:
+
+"Always connect to the service name"
+
+> ib-gateway-service:4003 
+
+Kubernetes assigns IP addresses dynamically, therefore any hard coded
+IP addresses almost certainly will be invalidated after a new deployment leading
+to connection timout errors. At the same time, kubernetes updates the internal DNS 
+system dynamically so whenever a pod got replaced, the new IP already is in the DNS
+resolver at the moment the pod comes online. Therefore, *always connect to the service name*
+
