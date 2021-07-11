@@ -1,5 +1,12 @@
 # Interactive Brokers Gateway Docker
 
+## Status: Archived (June/2021)!
+* Not used in my system anymore! 
+* Not updated anymore!
+* Not maintained anymore!
+* The docker container may still work as it is, but use it at your own risk. 
+* I have moved past IB because of the the poor API and the notorious unstable gateway.
+
 ### Based on the following work:
 
 * [IB Controller](https://github.com/ib-controller/ib-controller/) and VNC
