@@ -8,7 +8,7 @@
 * Not maintained anymore!
 * The docker container may still work as it is, but use it at your own risk. 
 * I have moved past IB because of the the poor API and the notorious unstable gateway.
-* I am doing now automated [crypto trading using this setup] (https://github.com/marvin-hansen/IB-gateway/issues/1)
+* I am doing automated [crypto trading using this setup] (https://github.com/marvin-hansen/IB-gateway/issues/1)
 
 *****
 
